@@ -1,4 +1,5 @@
-package task1;
+import exceptions.DuplicateModelNameException;
+import exceptions.NoSuchModelNameException;
 
 import java.util.Arrays;
 import java.util.Map;
@@ -6,7 +7,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Car {
+public class Car implements Transport{
 
     private String mark;
     private Model[] models;
@@ -32,12 +33,19 @@ public class Car {
                 .toArray(String[]::new);
     }
 
-    public int getPriceByName(String name) {
-        return modelsToMap().get(name);
+    public int getPriceByName(String name) throws NoSuchModelNameException {
+        Map<String, Integer> map = modelsToMap();
+        if (!map.containsKey(name)) {
+            throw new NoSuchModelNameException();
+        }
+        return map.get(name);
     }
 
-    public void setPriceByName(String name, int price) {
+    public void setPriceByName(String name, int price) throws NoSuchModelNameException {
         Map<String, Integer> map = modelsToMap();
+        if (!map.containsKey(name)) {
+            throw new NoSuchModelNameException();
+        }
         map.put(name, price);
         models = map.entrySet().stream().map(v -> new Model(v.getKey(), v.getValue())).toArray(Model[]::new);
     }
@@ -46,7 +54,11 @@ public class Car {
         return Arrays.stream(models).map(Model::getPrice).toArray(Integer[]::new);
     }
 
-    public void addModel(String name, int price) {
+    public void addModel(String name, int price) throws DuplicateModelNameException {
+        Map<String, Integer> map = modelsToMap();
+        if (map.containsKey(name)) {
+            throw new DuplicateModelNameException();
+        }
         int size = models.length + 1;
         Model[] array = Arrays.copyOf(models, size);
         array[models.length] = new Model(name, price);
