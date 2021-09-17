@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Car implements Transport{
+public class Car implements Transport {
 
     private String mark;
     private Model[] models;
@@ -50,8 +50,8 @@ public class Car implements Transport{
         models = map.entrySet().stream().map(v -> new Model(v.getKey(), v.getValue())).toArray(Model[]::new);
     }
 
-    public Integer[] getPrices() {
-        return Arrays.stream(models).map(Model::getPrice).toArray(Integer[]::new);
+    public int[] getPrices() {
+        return Arrays.stream(models).mapToInt(Model::getPrice).toArray();
     }
 
     public void addModel(String name, int price) throws DuplicateModelNameException {
