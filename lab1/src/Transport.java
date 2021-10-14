@@ -1,21 +1,26 @@
 import exceptions.DuplicateModelNameException;
+import exceptions.ModelPriceOutOfBoundsException;
 import exceptions.NoSuchModelNameException;
 
 public interface Transport {
 
     public String[] getModelNames();
 
-    public void setPriceByName(String name, int price) throws NoSuchModelNameException;
+    public double getPriceByName(String name) throws NoSuchModelNameException;
 
-    public int[] getPrices();
+    public void setPriceByName(String name, double price) throws NoSuchModelNameException, ModelPriceOutOfBoundsException;
 
-    public void addModel(String name, int price) throws DuplicateModelNameException;
+    public double[] getPrices();
 
-    public void deleteModel(String name, int price);
+    public void addModel(String name, double price) throws DuplicateModelNameException;
+
+    public void deleteModel(String name, double price) throws NoSuchModelNameException;
 
     public int getModelsLength();
 
     public String getMark();
 
     public void setMark(String mark);
+
+    public void setModelName(String oldName, String newName) throws NoSuchModelNameException, DuplicateModelNameException;
 }
