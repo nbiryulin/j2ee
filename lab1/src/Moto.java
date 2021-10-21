@@ -2,11 +2,18 @@ import exceptions.DuplicateModelNameException;
 import exceptions.ModelPriceOutOfBoundsException;
 import exceptions.NoSuchModelNameException;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
-public class Moto implements Transport {
+public class Moto implements Transport, Serializable {
+
+    private static final long serialVersionUID = 2L;
+
+    public Moto() {
+    }
 
     public Moto(String mark, int size) {
         this.mark = mark;
@@ -132,7 +139,13 @@ public class Moto implements Transport {
         return map;
     }
 
-    private class Model {
+    public Map<String, Double> getModelsMap() {
+        Map<String, Double> map = new HashMap<>();
+        modelsToMap().forEach((key, value) -> map.put(key, value.getPrice()));
+        return map;
+    }
+
+    static class Model implements Serializable {
         String name = null;
         double price = Double.NaN;
         Model prev = null;
@@ -167,6 +180,10 @@ public class Moto implements Transport {
 
         public double getPrice() {
             return price;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 

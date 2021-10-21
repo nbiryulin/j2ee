@@ -2,16 +2,24 @@ import exceptions.DuplicateModelNameException;
 import exceptions.ModelPriceOutOfBoundsException;
 import exceptions.NoSuchModelNameException;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Car implements Transport {
+public class Car implements Transport, Serializable {
 
     private String mark;
     private Model[] models;
+
+
+    private static final long serialVersionUID = 1L;
+
+    public Car() {
+
+    }
 
     public Car(String mark, int count) {
         this.mark = mark;
@@ -31,7 +39,7 @@ public class Car implements Transport {
     }
 
     public double getPriceByName(String name) throws NoSuchModelNameException {
-        Map<String, Double> map = modelsToMap();
+        Map<String, Double> map = getModelsMap();
         if (!map.containsKey(name)) {
             throw new NoSuchModelNameException();
         }
@@ -39,7 +47,7 @@ public class Car implements Transport {
     }
 
     public void setPriceByName(String name, double price) throws NoSuchModelNameException {
-        Map<String, Double> map = modelsToMap();
+        Map<String, Double> map = getModelsMap();
         if (!map.containsKey(name)) {
             throw new NoSuchModelNameException();
         } else if (price < 0) {
@@ -54,19 +62,24 @@ public class Car implements Transport {
     }
 
     public void addModel(String name, double price) throws DuplicateModelNameException {
-        Map<String, Double> map = modelsToMap();
+        Map<String, Double> map = getModelsMap();
         if (map.containsKey(name)) {
             throw new DuplicateModelNameException();
         } else if (price < 0) {
             throw new ModelPriceOutOfBoundsException();
         }
         int size = getModelsLength() + 1;
-        Model[] array = Arrays.copyOf(models, size);
-        array[getModelsLength()] = new Model(name, price);
-        models = array;
+        if (models != null) {
+            Model[] array = Arrays.copyOf(models, size);
+            array[getModelsLength()] = new Model(name, price);
+            models = array;
+        } else {
+            models = new Model[]{new Model(name, price)};
+        }
+
     }
 
-    private Map<String, Double> modelsToMap() {
+    public Map<String, Double> getModelsMap() {
         if (getModelsLength() == 0) {
             return new HashMap<>();
         }
@@ -90,15 +103,16 @@ public class Car implements Transport {
         if (position == -1) {
             throw new NoSuchModelNameException();
         }
-        //    Model[] copyArray = new Model[models.length - 1];
-        // copyArray = Arrays.copyOf(models, position);
-        //  System.arraycopy(models, 0, copyArray, 0, position);
         System.arraycopy(models, position + 1, models, position, models.length - position - 1);
         models = Arrays.copyOf(models, models.length - 1);
     }
 
     public int getModelsLength() {
-        return (int) Arrays.stream(models).filter(Objects::nonNull).count();
+        if (models == null) {
+            return 0;
+        } else {
+            return (int) Arrays.stream(models).filter(Objects::nonNull).count();
+        }
     }
 
     public String getMark() {
@@ -111,19 +125,19 @@ public class Car implements Transport {
 
     @Override
     public void setModelName(String oldName, String newName) throws NoSuchModelNameException, DuplicateModelNameException{
-        Map<String, Double> map = modelsToMap();
+        Map<String, Double> map = getModelsMap();
         if (map.containsKey(newName)) {
             throw new DuplicateModelNameException();
         } else if (!map.containsKey(oldName)){
             throw new NoSuchModelNameException();
         }
-        Double price = modelsToMap().get(oldName);
+        Double price = getModelsMap().get(oldName);
         map.remove(oldName);
         map.put(newName, price);
         models = map.entrySet().stream().map(v -> new Model(v.getKey(), v.getValue())).toArray(Model[]::new);
     }
 
-    private class Model {
+    static class Model implements Serializable {
         private String name;
 
         public double getPrice() {

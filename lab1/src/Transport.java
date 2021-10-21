@@ -2,6 +2,8 @@ import exceptions.DuplicateModelNameException;
 import exceptions.ModelPriceOutOfBoundsException;
 import exceptions.NoSuchModelNameException;
 
+import java.util.Map;
+
 public interface Transport {
 
     public String[] getModelNames();
@@ -23,4 +25,6 @@ public interface Transport {
     public void setMark(String mark);
 
     public void setModelName(String oldName, String newName) throws NoSuchModelNameException, DuplicateModelNameException;
+
+    public Map<String, Double> getModelsMap();
 }
