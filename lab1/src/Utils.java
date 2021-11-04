@@ -166,4 +166,22 @@ public class Utils {
         byte[] type = inputStream.readNBytes(typeLength);
         return new String(type, charset);
     }
+
+
+    public static Car generateCar() throws DuplicateModelNameException {
+        Car car = new Car();
+        car.addModel("Model 1", 1.0);
+        car.addModel("Model 2", 2.0);
+        car.addModel("Model 3", 3.0);
+        return car;
+    }
+
+    public static Moto generateMoto() throws DuplicateModelNameException {
+        Moto car = new Moto();
+        car.addModel("Model 1", 1.0);
+        car.addModel("Model 2", 2.0);
+        car.addModel("Model 3", 3.0);
+        return car;
+    }
+
 }
