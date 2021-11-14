@@ -11,15 +11,7 @@ public class PrintModelNamesThread extends Thread {
 
     public void run() {
         System.out.println(getName() + " started...");
-        Arrays.stream(transport.getModelNames()).forEach(v -> {
-            System.out.println(v);
-
-//            try {
-//                sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-        });
+        Arrays.stream(transport.getModelNames()).forEach(System.out::println);
         System.out.println(getName() + " finished..");
     }
 }

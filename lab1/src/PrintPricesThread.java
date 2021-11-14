@@ -11,14 +11,7 @@ public class PrintPricesThread extends Thread {
 
     public void run() {
         System.out.println(getName() + " started...");
-        Arrays.stream(transport.getPrices()).forEach(v -> {
-            System.out.println(v);
-//            try {
-//                sleep(100);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-        });
+        Arrays.stream(transport.getPrices()).forEach(System.out::println);
         System.out.println(getName() + " finished...");
     }
 }
