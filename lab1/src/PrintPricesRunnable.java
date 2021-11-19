@@ -14,19 +14,17 @@ public class PrintPricesRunnable implements Runnable {
   @Override
   public void run() {
     while (counter < models.length) {
-      try {
+//      try {
         if (!transportSynchronizer.marker.get()) {
          // transportSynchronizer.acquire();
-          sleep(1);
           System.out.println(models[counter]);
           counter++;
      //     transportSynchronizer.release();
-          sleep(1);
           transportSynchronizer.marker.set(true);
         }
-      } catch (InterruptedException e) {
-        System.out.println(e.getMessage());
-      }
+//      } catch (InterruptedException e) {
+//        System.out.println(e.getMessage());
+//      }
     }
   }
 }
