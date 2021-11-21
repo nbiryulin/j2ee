@@ -1,4 +1,7 @@
+package task1;
+
 import java.util.Arrays;
+import model.Transport;
 
 public class PrintPricesThread extends Thread {
 

@@ -1,6 +1,9 @@
 import exceptions.DuplicateModelNameException;
 
 import java.io.*;
+import model.Car;
+import model.Transport;
+import utils.Utils;
 
 public class Lab2 {
 

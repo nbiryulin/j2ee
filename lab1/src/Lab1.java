@@ -3,6 +3,10 @@ import exceptions.ModelPriceOutOfBoundsException;
 import exceptions.NoSuchModelNameException;
 
 import java.util.Arrays;
+import model.Car;
+import model.Moto;
+import model.Transport;
+import utils.Utils;
 
 public class Lab1 {
 
@@ -30,7 +34,7 @@ public class Lab1 {
             car.setModelName("1", "4");
             Utils.printNames(car);
             car.deleteModel("3", 3.0);
-            car.deleteModel("Moto 1", 1.0);
+            car.deleteModel("model.Moto 1", 1.0);
           //  car.deleteModel("foo", 1.0);
             car.setModelName( "foo", "4");
 

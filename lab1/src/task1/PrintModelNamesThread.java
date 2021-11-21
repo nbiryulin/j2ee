@@ -1,4 +1,7 @@
+package task1;
+
 import java.util.Arrays;
+import model.Transport;
 
 public class PrintModelNamesThread extends Thread {
 
@@ -10,8 +13,6 @@ public class PrintModelNamesThread extends Thread {
     }
 
     public void run() {
-        System.out.println(getName() + " started...");
         Arrays.stream(transport.getModelNames()).forEach(System.out::println);
-        System.out.println(getName() + " finished..");
     }
 }

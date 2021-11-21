@@ -1,3 +1,5 @@
+package model;
+
 import exceptions.DuplicateModelNameException;
 import exceptions.ModelPriceOutOfBoundsException;
 import exceptions.NoSuchModelNameException;

@@ -1,4 +1,6 @@
-import static java.lang.Thread.sleep;
+package task2;
+
+import model.Transport;
 
 public class PrintModelsRunnable implements Runnable {
 
@@ -18,7 +20,7 @@ public class PrintModelsRunnable implements Runnable {
 //      try {
         if (transportSynchronizer.marker.get()) {
       //    transportSynchronizer.acquire();
-          System.out.println(models[counter]);
+          System.out.println("Task 2 : " + models[counter]);
           counter++;
         //  transportSynchronizer.release();
           transportSynchronizer.marker.set(false);

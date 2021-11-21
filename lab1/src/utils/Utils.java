@@ -1,12 +1,18 @@
+package utils;
+
 import exceptions.DuplicateModelNameException;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Map;
-import java.util.TreeMap;
+import model.Car;
+import model.Moto;
+import model.Transport;
+import model.TransportType;
 
 public class Utils {
 
@@ -34,7 +40,7 @@ public class Utils {
             } else if (transport instanceof Moto) {
                 type = TransportType.MOTO.toString();
             } else {
-                System.out.println("Transport type not handled");
+                System.out.println("model.Transport type not handled");
                 return;
             }
 
@@ -101,7 +107,7 @@ public class Utils {
         } else if (transport instanceof Moto) {
             type = TransportType.MOTO.toString();
         } else {
-            System.out.println("Transport type not handled");
+            System.out.println("model.Transport type not handled");
             return;
         }
 

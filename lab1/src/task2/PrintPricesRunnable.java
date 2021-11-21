@@ -1,4 +1,9 @@
+package task2;
+
 import static java.lang.Thread.sleep;
+
+import model.Transport;
+import task2.TransportSynchronizer;
 
 public class PrintPricesRunnable implements Runnable {
 
@@ -17,7 +22,7 @@ public class PrintPricesRunnable implements Runnable {
 //      try {
         if (!transportSynchronizer.marker.get()) {
          // transportSynchronizer.acquire();
-          System.out.println(models[counter]);
+          System.out.println("Task 2 : " + models[counter]);
           counter++;
      //     transportSynchronizer.release();
           transportSynchronizer.marker.set(true);

@@ -1,3 +1,5 @@
+package model;
+
 import exceptions.DuplicateModelNameException;
 import exceptions.ModelPriceOutOfBoundsException;
 import exceptions.NoSuchModelNameException;
@@ -6,7 +8,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
+import model.Transport;
 
 public class Moto implements Transport, Serializable {
 
@@ -19,7 +21,7 @@ public class Moto implements Transport, Serializable {
         this.mark = mark;
         try {
             for (int i = 1; i < size + 1; i++) {
-                addModel("Moto " + i, i);
+                addModel("model.Moto " + i, i);
             }
         } catch (DuplicateModelNameException e) {
             e.printStackTrace();
